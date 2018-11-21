@@ -12,13 +12,14 @@ This ROS node is made to be used on systems which have:
     Ubuntu 16.04
     Turtlebot packages
 
-To install ROS, follow the instructions on this link
+To install ROS, follow the instructions on this link: http://wiki.ros.org/kinetic/Installation
 
 To install the turtlebot packages, run the following after installing ROS Kinetic on your ubuntu 16.04.
 
 sudo apt-get install ros-kinetic-turtlebot-*
-```
+
 This installs all the turtlebot packages.
+
 ##  Build
 
 mkdir -p ~/catkin_ws/src
@@ -57,7 +58,7 @@ roslaunch turtlebot_walker turtlebot_walker.launch record:=true record_time:=32
 The bag file is stored in ..turtlebot_walker/results/turtlebot_walker.bag
 ## Playing back the bag file
 
-First, navigate to the results folder.
+First, Go to the results folder.
 
 cd <path to repository>/results
 
@@ -65,9 +66,9 @@ To inspect the bag file, ensure that the roscore is running. Then in a new termi
 ```
 rosbag play turtlebot_walker.bag
 ```
-You will be able to see the elapsed time output on the screen. It would be playing the same messages that were recorded on all the recorded topics.
+You will be able to see the elapsed time output on the screen. It would be playing the recorded messages when the turtlebot was actually moving.
 
-You can view all the messages being published on a topic e.g. /cmd_vel_mux/input/navi.
+You can view the messages being published on the topic /cmd_vel_mux/input/navi.
 ```
 rostopic echo /cmd_vel_mux/input/navi
 ```
