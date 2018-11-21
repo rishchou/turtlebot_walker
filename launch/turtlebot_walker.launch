@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
+    </include>
+    <node 
+        pkg="turtlebot_walker" 
+        name="turtlebot_walker"
+        type="turtlebot_walker" 
+        output="screen" 
+        launch-prefix="gnome-terminal --command"
+/>
+</launch>
