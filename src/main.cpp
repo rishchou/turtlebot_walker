@@ -1,4 +1,4 @@
-#include "turtlebot_walker/turtlebotWalker.hpp"
+#include "../include/turtlebot_walker/turtlebotWalker.hpp"
 
 
 int main(int argc, char* argv[]) {
@@ -7,6 +7,6 @@ int main(int argc, char* argv[]) {
   // Create the turtlebotWalker object
   turtlebotWalker walker;
   // Run the turtlebotWalker behaviour
-  turtlebotWalker.navigateBot();
+  walker.navigateBot();
   return 0;
 }

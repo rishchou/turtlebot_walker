@@ -1,10 +1,10 @@
 #include <iostream>
- #include "turtlebot_walker/turtlebotWalker.hpp" 
+#include "../include/turtlebot_walker/turtlebotWalker.hpp" 
 
-turtlebotWalker::turtlebotWalker(ros::Nodehandle &n) {
+turtlebotWalker::turtlebotWalker() {
     collision = false;
-    velPub = n.advertise <geometry_msgs::Twist> ("/mobile_base/commands/velocity", 100);
-    sub = n.subscribe("scan", 50, &turtlebotWalker::laserScanCallback, this);
+    velPub = n.advertise <geometry_msgs::Twist> ("/cmd_vel_mux/input/navi", 1000);
+    sub = n.subscribe("/scan", 500, &turtlebotWalker::laserScanCallback, this);
     //define the initial velocities
     msg.linear.x = 0.0;
     msg.linear.y = 0.0;
@@ -27,26 +27,32 @@ turtlebotWalker::~turtlebotWalker() {
 }
 
 
-void turtlebot::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-    for(auto i : msg->ranges) {
-        if(i < 1.0) {
+void turtlebotWalker::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
+    for(int i = 0; i < msg->ranges.size(); ++i) {
+        if(msg->ranges[i] < 0.60) {
             collision = true;
-        } else {
-            collision = false;
-        }
+            return;
+        } 
     }
+    
+    collision = false;
+    
     return;
 }
 
-void navigateBot() {
+bool turtlebotWalker::detectObstacle() {
+    return collision;
+}
+
+void turtlebotWalker::navigateBot() {
     ros::Rate loop_rate(10);
     while (ros::ok()) {
-        if(collision) {
+        if(detectObstacle()) {
             msg.linear.x = 0.0;
-            msg.angular.z = 0.5;
+            msg.angular.z = -1.0;
         } else {
+            msg.linear.x = 0.2;
             msg.angular.z = 0.0;
-            msg.linear.x = 0.1;
         }
 
         velPub.publish(msg);
