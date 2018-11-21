@@ -1,4 +1,4 @@
-i/**
+/**
  *  MIT License
  *
  *  Copyright (c) 2018 Rishabh Choudhary
@@ -83,12 +83,10 @@ void turtlebotWalker::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& 
     // Minimum threshold  distance for collision = 0.60
         if(msg->ranges[i] < 0.60) {
             collision = true;
-            ROS_WARN_STREAM("Obstacle detected");
             return;
         } 
     } 
     collision = false;
-    ROS_INFO_STREAM("No obstacle detected");
     return;
 }
 
@@ -104,7 +102,7 @@ void turtlebotWalker::navigateBot() {
     while (ros::ok()) {
         // If obstacle is detected, turn the turtlebot 
         if(detectObstacle()) {
-            ROS_INFO_STREAM("Obstacle ahead, turning bot");
+            ROS_WARN_STREAM("Obstacle ahead, turning bot");
             // Stop the forward motion 
             msg.linear.x = 0.0;
             // Rotate the bot
