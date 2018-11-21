@@ -21,7 +21,7 @@ sudo apt-get install ros-kinetic-turtlebot-*
 This installs all the turtlebot packages.
 
 ##  Build
-
+```
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin_make
