@@ -36,18 +36,18 @@
  *
  */
 
-#ifndef INCLUDE_TURTLEBOT_WALKER_HPP_
-#define INCLUDE_TURTLEBOT_WALKER_HPP_
+#ifndef INCLUDE_TURTLEBOT_WALKER_TURTLEBOTWALKER_HPP_
+#define INCLUDE_TURTLEBOT_WALKER_TURTLEBOTWALKER_HPP_
 
 // ROS headers
+#include <geometry_msgs/Twist.h>
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
-#include <geometry_msgs/Twist.h>
 
 /**
  *  @brief Class turtlebotWalker
  *
- *  The following class turtlebotWalker subscribes to laserScan data 
+ *  The following class turtlebotWalker subscribes to laserScan data
  *  and  publishes command velocity to illustrate a walker mechanism by turtlebot
  *  turtlebot  
  */
@@ -59,12 +59,12 @@ class turtlebotWalker {
     ros::Subscriber sub;
     // ROS publisher object
     ros::Publisher velPub;
-    // Boolean flag to detect collision 
+    // Boolean flag to detect collision
     bool collision;
     // Message type to publish linear and angular velocities
     geometry_msgs::Twist msg;
-    
-  
+
+
  public:
    /**
     *   @brief  Constructor for turtlebotWalker class
@@ -110,6 +110,6 @@ class turtlebotWalker {
     *   @return void
     */
     void navigateBot();
- };
+};
 
-#endif
+#endif    // INCLUDE_TURTLEBOT_WALKER_TURTLEBOTWALKER_HPP_

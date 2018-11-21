@@ -1,0 +1,5 @@
+rishchou@rishchou-UX550VE:~/catkin_ws/src/turtlebot_walker$ cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+Done processing ./include/turtlebot_walker/turtlebotWalker.hpp
+Done processing ./src/main.cpp
+Done processing ./src/turtlebotWalker.cpp
+

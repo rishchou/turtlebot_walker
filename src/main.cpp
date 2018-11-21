@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
   ros::init(argc, argv, "turtlebot_walker");
   // Create the turtlebotWalker object
   turtlebotWalker walker;
-  // Navigate the turtlebotWalker 
+  // Navigate the turtlebotWalker
   walker.navigateBot();
   return 0;
 }

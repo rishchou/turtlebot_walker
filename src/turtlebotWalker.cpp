@@ -43,17 +43,18 @@
 // CPP header
 #include <iostream>
 // turtlebotWalker class header
-#include "../include/turtlebot_walker/turtlebotWalker.hpp" 
+#include "../include/turtlebot_walker/turtlebotWalker.hpp"
 
 turtlebotWalker::turtlebotWalker() {
     ROS_INFO_STREAM("turtlebot_walker node initialized");
     // Initialize class params
     collision = false;
     // advertise the publisher topic with rosmaster
-    velPub = n.advertise <geometry_msgs::Twist> ("/cmd_vel_mux/input/navi", 1000);
-    // SUbscribe to the laserscan topic 
+    velPub = n.advertise <geometry_msgs::Twist>
+                     ("/cmd_vel_mux/input/navi", 1000);
+    // SUbscribe to the laserscan topic
     sub = n.subscribe("/scan", 500, &turtlebotWalker::laserScanCallback, this);
-    //define the initial velocities
+    // define the initial velocities
     msg.linear.x = 0.0;
     msg.linear.y = 0.0;
     msg.linear.z = 0.0;
@@ -65,27 +66,28 @@ turtlebotWalker::turtlebotWalker() {
 }
 
 turtlebotWalker::~turtlebotWalker() {
-    //stop the turtlebot before exiting
+    // stop the turtlebot before exiting
     msg.linear.x = 0.0;
     msg.linear.y = 0.0;
     msg.linear.z = 0.0;
     msg.angular.x = 0.0;
     msg.angular.y = 0.0;
     msg.angular.z = 0.0;
-    // publish the  final velocities 
+    // publish the  final velocities
     velPub.publish(msg);
 }
 
 
-void turtlebotWalker::laserScanCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-    // Loop though the laserscan mesages to check collision 
-    for(int i = 0; i < msg->ranges.size(); ++i) {
+void turtlebotWalker::laserScanCallback(
+             const sensor_msgs::LaserScan::ConstPtr& msg) {
+    // Loop though the laserscan mesages to check collision
+    for (int i = 0; i < msg->ranges.size(); ++i) {
     // Minimum threshold  distance for collision = 0.60
-        if(msg->ranges[i] < 0.60) {
+        if (msg->ranges[i] < 0.60) {
             collision = true;
             return;
-        } 
-    } 
+        }
+    }
     collision = false;
     return;
 }
@@ -100,10 +102,10 @@ void turtlebotWalker::navigateBot() {
     ros::Rate loop_rate(10);
     // Implement till ros is running good
     while (ros::ok()) {
-        // If obstacle is detected, turn the turtlebot 
-        if(detectObstacle()) {
+        // If obstacle is detected, turn the turtlebot
+        if (detectObstacle()) {
             ROS_WARN_STREAM("Obstacle ahead, turning bot");
-            // Stop the forward motion 
+            // Stop the forward motion
             msg.linear.x = 0.0;
             // Rotate the bot
             msg.angular.z = -1.0;
@@ -113,11 +115,11 @@ void turtlebotWalker::navigateBot() {
             msg.linear.x = 0.2;
             msg.angular.z = 0.0;
         }
-        // Publish the updated velocities	 
+        // Publish the updated velocities
         velPub.publish(msg);
 
         ros::spinOnce();
-    
+
         loop_rate.sleep();
     }
 }

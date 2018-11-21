@@ -1,0 +1,6 @@
+rishchou@rishchou-UX550VE:~/catkin_ws/src/turtlebot_walker$ cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" )
+Checking src/main.cpp...
+1/2 files checked 31% done
+Checking src/turtlebotWalker.cpp...
+2/2 files checked 100% done
+
